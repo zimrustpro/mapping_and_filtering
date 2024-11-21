@@ -53,5 +53,12 @@ fn main() {
         .iter()
         .filter_map(|c| c.get_ceo()) // closure inside filter_map should return an Option
         .collect::<Vec<_>>();
-    println!("{:?}", all_the_ceos)
+    println!("{:?}", all_the_ceos);
+
+    let user_input = vec!["8.9", "Nine point nine five", "8", "7.6", "eleventy-twelve"];
+    let successful_numbers = user_input
+        .iter()
+        .filter_map(|input| input.parse::<f32>().ok())
+        .collect::<Vec<f32>>();
+    println!("{:?}", successful_numbers);
 }
