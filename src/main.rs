@@ -20,6 +20,10 @@ impl Company {
     }
 }
 
+fn get_current_datetime() -> String {
+    "2024-01-27T23:11:23".to_string()
+}
+
 fn main() {
     let company_vec = vec![
         Company::new("Umbrella Corporation", "Unknown"),
@@ -28,11 +32,19 @@ fn main() {
         Company::new("Stark Enterprises", ""),
     ];
 
-    let results: Vec<Result<String, &str>> = company_vec
+    let results: Vec<Result<String, String>> = company_vec
         .iter()
-        .map(|company| company.get_ceo().ok_or("No CEO found"))
+        .map(|company| {
+            company.get_ceo().ok_or_else(|| {
+                let err_message = format!("No CEO found for {}", company._name);
+                println!("{} at {}", err_message, get_current_datetime());
+                err_message
+            })
+        })
         .collect();
-    for item in results {
-        println!("{:?}", item);
-    }
+
+    results
+        .iter()
+        .filter(|res| res.is_ok())
+        .for_each(|res| println!("{:?}", res));
 }
