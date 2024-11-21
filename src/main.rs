@@ -21,27 +21,6 @@ impl Company {
 }
 
 fn main() {
-    let months = vec![
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    let filtered_months = months
-        .into_iter()
-        .filter(|month| month.len() < 5)
-        .filter(|month| month.contains("u"))
-        .collect::<Vec<&str>>();
-    println!("{:?}", filtered_months);
-
     let company_vec = vec![
         Company::new("Umbrella Corporation", "Unknown"),
         Company::new("Ovintiv", "Brendan McCracken"),
@@ -49,16 +28,11 @@ fn main() {
         Company::new("Stark Enterprises", ""),
     ];
 
-    let all_the_ceos = company_vec
+    let results: Vec<Result<String, &str>> = company_vec
         .iter()
-        .filter_map(|c| c.get_ceo()) // closure inside filter_map should return an Option
-        .collect::<Vec<_>>();
-    println!("{:?}", all_the_ceos);
-
-    let user_input = vec!["8.9", "Nine point nine five", "8", "7.6", "eleventy-twelve"];
-    let successful_numbers = user_input
-        .iter()
-        .filter_map(|input| input.parse::<f32>().ok())
-        .collect::<Vec<f32>>();
-    println!("{:?}", successful_numbers);
+        .map(|company| company.get_ceo().ok_or("No CEO found"))
+        .collect();
+    for item in results {
+        println!("{:?}", item);
+    }
 }
