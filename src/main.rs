@@ -1,64 +1,21 @@
-struct Company {
-    _name: String,
-    ceo: Option<String>,
-}
-
-impl Company {
-    fn new(name: &str, ceo: &str) -> Self {
-        let ceo = match ceo {
-            "" => None,
-            ceo => Some(ceo.to_string()),
-        };
-        Self {
-            _name: name.to_string(),
-            ceo,
-        }
-    }
-
-    fn get_ceo(&self) -> Option<String> {
-        self.ceo.clone()
-    }
-}
-
 fn main() {
-    let months = vec![
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-    ];
-    let filtered_months = months
+    let num_array = ["8", "9", "Hi", "9898989898"];
+    let mut char_vec = vec![];
+    for index in 0..5 {
+        char_vec.push(
+            num_array
+                .get(index)
+                .and_then(|number| number.parse::<u32>().ok())
+                .and_then(|number| char::try_from(number).ok()),
+        );
+    }
+    println!("{:?}", char_vec);
+
+    for num in ["9", "nine", "ninety-nine", "9.9"]
         .into_iter()
-        .filter(|month| month.len() < 5)
-        .filter(|month| month.contains("u"))
-        .collect::<Vec<&str>>();
-    println!("{:?}", filtered_months);
-
-    let company_vec = vec![
-        Company::new("Umbrella Corporation", "Unknown"),
-        Company::new("Ovintiv", "Brendan McCracken"),
-        Company::new("The Red-Headed League", ""),
-        Company::new("Stark Enterprises", ""),
-    ];
-
-    let all_the_ceos = company_vec
-        .iter()
-        .filter_map(|c| c.get_ceo()) // closure inside filter_map should return an Option
-        .collect::<Vec<_>>();
-    println!("{:?}", all_the_ceos);
-
-    let user_input = vec!["8.9", "Nine point nine five", "8", "7.6", "eleventy-twelve"];
-    let successful_numbers = user_input
-        .iter()
-        .filter_map(|input| input.parse::<f32>().ok())
-        .collect::<Vec<f32>>();
-    println!("{:?}", successful_numbers);
+        .map(|num| num.parse::<f32>())
+        .flatten()
+    {
+        println!("{:?}", num);
+    }
 }
