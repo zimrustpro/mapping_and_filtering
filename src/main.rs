@@ -1,3 +1,9 @@
+#[derive(Debug)]
+struct CombinedEvents {
+    num_of_events: u32,
+    data: Vec<String>,
+}
+
 fn main() {
     let even_odd_iter = ["even", "odd"].into_iter().cycle();
     let even_odd_vec = (0..=5).zip(even_odd_iter).collect::<Vec<(i32, &str)>>();
@@ -15,4 +21,24 @@ fn main() {
             .iter()
             .fold(0, |total_so_far, next_number| total_so_far + next_number)
     );
+
+    let events = [
+        "Went to grocery store",
+        "Came home",
+        "Fed cat",
+        "Fed cat again",
+    ];
+    let empty_events = CombinedEvents {
+        num_of_events: 0,
+        data: vec![],
+    };
+
+    let combined_events = events
+        .iter()
+        .fold(empty_events, |mut total_events, next_event| {
+            total_events.num_of_events += 1;
+            total_events.data.push(next_event.to_string());
+            total_events
+        });
+    println!("{:#?}", combined_events);
 }
