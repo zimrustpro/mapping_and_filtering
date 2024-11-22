@@ -45,4 +45,10 @@ fn main() {
         }
     }
     println!("Number of loops: {}", num_loops);
+
+    let num_vec = vec![10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    println!("{:?}", num_vec.iter().find(|num| *num % 3 == 0));
+    println!("{:?}", num_vec.iter().position(|num| *num % 3 == 0));
+    println!("{:?}", num_vec.iter().find(|num| *num % 3 == 11));
+    println!("{:?}", num_vec.iter().position(|num| *num % 3 == 11));
 }
