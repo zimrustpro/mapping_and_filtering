@@ -45,4 +45,13 @@ fn main() {
     let mut number_iter = [7, 8, 9, 10].into_iter();
     let first_two = number_iter.by_ref().take(2).collect::<Vec<_>>();
     let second_two = number_iter.take(2).collect::<Vec<_>>();
+
+    let num_vec = vec![1, 2, 3, 4, 5, 6, 7];
+    for chunk in num_vec.chunks(3) {
+        println!("{:?}", chunk);
+    }
+    println!();
+    for window in num_vec.windows(3) {
+        println!("{:?}", window);
+    }
 }
