@@ -17,4 +17,8 @@ fn main() {
         "All alphabetic? {}",
         smaller_vec.iter().all(|x| x.is_alphabetic())
     );
+    println!(
+        "All less than the character 행? {}",
+        smaller_vec.iter().all(|&x| x < '행')
+    );
 }
