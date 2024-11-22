@@ -43,8 +43,8 @@ fn main() {
     println!("{:#?}", combined_events);
 
     let mut number_iter = [7, 8, 9, 10].into_iter();
-    let first_two = number_iter.by_ref().take(2).collect::<Vec<_>>();
-    let second_two = number_iter.take(2).collect::<Vec<_>>();
+    let _first_two = number_iter.by_ref().take(2).collect::<Vec<_>>();
+    let _second_two = number_iter.take(2).collect::<Vec<_>>();
 
     let num_vec = vec![1, 2, 3, 4, 5, 6, 7];
     for chunk in num_vec.chunks(3) {
@@ -53,5 +53,15 @@ fn main() {
     println!();
     for window in num_vec.windows(3) {
         println!("{:?}", window);
+    }
+
+    let some_str = "Er ist noch nicht erklärt. Aber es gibt Krieg. Verlaß dich drauf.";
+    // match_indices() takes anything that matches a trait called `Pattern`
+    // &str, char and even closures can be passsed into this method
+    for (index, item) in some_str.match_indices(|c| c > 'z') {
+        println!("{} at {}", item, index);
+    }
+    for (index, item) in some_str.match_indices(". ") {
+        println!("{} at {}", item, index);
     }
 }
